@@ -1,9 +1,10 @@
+import { AppTheme } from "./theme";
 
 function App() {
   return (
-    <div >
+    <AppTheme>
       <h1>hola mundo</h1>
-    </div>
+    </AppTheme>
   );
 }
 
