@@ -1,8 +1,6 @@
-import { Button, Card, CardActions, IconButton, CardContent, Checkbox, Grid, Typography } from "@mui/material"
+import { Card, IconButton, CardContent, Checkbox, Grid, Typography } from "@mui/material"
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-
-// const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export const CardTask = () => {
     return (
@@ -34,8 +32,6 @@ export const CardTask = () => {
                     </Grid>
                 </Grid>
             </CardContent>
-            {/* <CardActions>
-            </CardActions> */}
         </Card>
     )
 }
