@@ -1,16 +1,11 @@
-import { Typography } from "@mui/material"
 import { TodoLayout } from "../layout"
+import { CompleteTasksView, ToDoTasksView } from '../views'
 
 export const ToDoPages = () => {
     console.log('Hola mundo')
     return (
         <TodoLayout>
-            <Typography>aoehunsadoedutnaoed
-                uatnoedunsadoeudadoecrud anoedusadocrseud
-                acroedu racoeducraod
-                eucraod eucrda
-                orecudaro</Typography>
-
+            <ToDoTasksView />
         </TodoLayout>
     )
 }
