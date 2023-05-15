@@ -11,6 +11,8 @@ const initialState = {
     filter: { status: 'all' }
 }
 
+const switchStatus = { 'pending': 'done', 'done': 'pending' }
+
 export const todoSlice = createSlice({
     name: 'todo',
     initialState,
@@ -32,7 +34,7 @@ export const todoSlice = createSlice({
         toggleCheckTask: (state, action) => {
             state.listTask = state.listTask.map(task => {
                 if (action.payload === task.id) {
-                    return { ...task, status: !task.status }
+                    return { ...task, status: switchStatus[task.status] }
                 }
                 return task
             })
