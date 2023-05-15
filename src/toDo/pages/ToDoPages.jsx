@@ -9,19 +9,25 @@ import { ModalTask } from "../components/ModalTask"
 
 export const ToDoPages = () => {
     const [shomModal, setShomModal] = useState(false)
+    const [info, setInfo] = useState(undefined)
 
-    const handleOpen = () => {
+    const handleOpenModal = (info) => {
+        console.log({ info })
+        if (info) {
+            setInfo(info)
+        }
         setShomModal(true);
     };
-    const handleClose = () => {
+    const handleCloseModal = () => {
+        setInfo(undefined)
         setShomModal(false);
     };
 
     return (
         <TodoLayout>
-            <ToDoTasksView />
+            <ToDoTasksView openModal={handleOpenModal} />
             <IconButton
-                onClick={handleOpen}
+                onClick={() => handleOpenModal()}
                 size='large'
                 sx={{
                     color: 'blue',
@@ -35,9 +41,10 @@ export const ToDoPages = () => {
                 <AddOutlined sx={{ fontSize: '30', color: 'white' }} />
             </IconButton>
             {shomModal && <ModalTask
-                handleClose={handleClose}
+                defaultInfo={info}
+                handleClose={handleCloseModal}
                 open={shomModal}
-                handleSave={() => console.log('guardar tarea')}
+                handleSave={(task) => console.log({ 'guardar tarea': task })}
             />}
         </TodoLayout>
     )

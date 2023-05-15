@@ -1,11 +1,11 @@
 import { Grid } from "@mui/material"
 import { CardTask } from "./components"
-import { useDispatch, useSelector } from "react-redux"
 
-import { deleteTask, editTask, toggleCheckTask } from "../../store/slices/todos"
+import { useDispatch, useSelector } from "react-redux"
+import { deleteTask, toggleCheckTask } from "../../store/slices/todos"
 // import actions from "../../store/slices/todos"
 
-export const ToDoTasksView = () => {
+export const ToDoTasksView = ({ openModal }) => {
     const { listTask } = useSelector((state) => state.todo)
     const dispatch = useDispatch();
 
@@ -17,10 +17,7 @@ export const ToDoTasksView = () => {
                     key={id}
                     {...data}
                     deleteItem={() => dispatch(deleteTask(id))}
-                    editItem={() => dispatch(editTask({
-                        id: 2,
-                        title: 'prueba de editar',
-                    }))}
+                    editItem={() => openModal(data)}
                     toggleItem={() => dispatch(toggleCheckTask(id))}
                 />)
             }
