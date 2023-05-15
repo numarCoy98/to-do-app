@@ -42,7 +42,8 @@ export const todoSlice = createSlice({
                 const entries = Object.entries(state.filter)
                 return entries.length > 0 && entries.every(([key, value]) => {
                     if (key === 'search') {
-                        return true
+                        if (value.trim().length <= 1) return true
+                        return task['title'].includes(value)
                     }
                     if (key === 'status' && value === 'all') return true
                     return task[key] === value
