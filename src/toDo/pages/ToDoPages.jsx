@@ -33,7 +33,7 @@ export const ToDoPages = () => {
         if (info) {
             return dispatch(editTask(task))
         }
-        console.log({ add: task })
+        return dispatch(addTask(task))
     }
 
     return (

@@ -1,4 +1,6 @@
+import { v1 } from 'uuid'
 import { createSlice } from '@reduxjs/toolkit'
+
 import listTask from '../../../data/list_task.json'
 import categories from '../../../data/categories.json'
 
@@ -8,11 +10,11 @@ const initialState = {
 }
 
 export const todoSlice = createSlice({
-    name: 'counter',
+    name: 'todo',
     initialState,
     reducers: {
         addTask: (state, action) => {
-            state.push(action.payload)
+            state.listTask.push({ ...action.payload, id: v1() })
         },
         deleteTask: (state, action) => {
             state.listTask = state.listTask.filter(({ id }) => action.payload !== id)
