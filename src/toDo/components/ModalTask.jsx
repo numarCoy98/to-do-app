@@ -18,6 +18,8 @@ const style = {
 
 const validateForm = (values) => values.every(value => value.trim().length >= 1)
 
+const statusToBoolean = { done: true, pending: false }
+
 export const ModalTask = ({ handleClose, open, handleSave, defaultInfo = undefined, categories = [] }) => {
 
     const [alert, setAlert] = useState(false)
@@ -30,7 +32,7 @@ export const ModalTask = ({ handleClose, open, handleSave, defaultInfo = undefin
     })
 
     const saveForm = () => {
-        const isFormComplete = validateForm([title, description])
+        const isFormComplete = validateForm([title, description, category])
         console.log({ formState })
         if (isFormComplete) return (handleSave(formState), handleClose())
         return setAlert(true)
@@ -93,7 +95,7 @@ export const ModalTask = ({ handleClose, open, handleSave, defaultInfo = undefin
                         </Select>
                     </FormControl>
                     <div style={{ padding: '0.2rem 0.6rem' }}>
-                        <FormControlLabel disabled control={<Checkbox />} checked={status} label={status ? 'Hecho' : 'Sin completar'} />
+                        <FormControlLabel disabled control={<Checkbox />} checked={statusToBoolean[status]} label={status ? 'Hecho' : 'Sin completar'} />
                     </div>
                     <CardActions>
                         <Button onClick={saveForm} size="small">Guardar</Button>
