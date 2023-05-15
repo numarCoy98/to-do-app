@@ -12,6 +12,7 @@ import { addTask, editTask } from "../../store/slices/todos"
 export const ToDoPages = () => {
 
     const dispatch = useDispatch();
+    const { categories } = useSelector((state) => state.todo)
 
     const [shomModal, setShomModal] = useState(false)
     const [info, setInfo] = useState(undefined)
@@ -53,6 +54,7 @@ export const ToDoPages = () => {
                 <AddOutlined sx={{ fontSize: '30', color: 'white' }} />
             </IconButton>
             {shomModal && <ModalTask
+                categories={categories}
                 defaultInfo={info}
                 handleClose={handleCloseModal}
                 open={shomModal}

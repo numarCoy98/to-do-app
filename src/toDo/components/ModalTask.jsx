@@ -87,8 +87,7 @@ export const ModalTask = ({ handleClose, open, handleSave, defaultInfo = undefin
                             onChange={onInputChange}
                         >
                             {categories.map(value =>
-                                <MenuItem value={value}>{value}</MenuItem>
-
+                                <MenuItem key={value} value={value}>{value}</MenuItem>
                             )}
                         </Select>
                     </FormControl>
