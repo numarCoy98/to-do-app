@@ -1,7 +1,7 @@
-export const saveToLocalStorage = (state) => {
+export const saveToLocalStorage = (key, state) => {
     try {
         const serialisedState = JSON.stringify(state);
-        localStorage.setItem("todoList", serialisedState);
+        localStorage.setItem(key, serialisedState);
     } catch (e) {
         console.warn(e);
     }

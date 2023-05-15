@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 // import listTask from '../../../data/list_task.json'
 import categories from '../../../data/categories.json'
-import { loadFromLocalStore } from '../../browser-storage'
+import { loadFromLocalStore, saveToLocalStorage } from '../../browser-storage'
 
 const initialState = {
     categories,
@@ -17,14 +17,17 @@ export const todoSlice = createSlice({
     reducers: {
         addTask: (state, action) => {
             state.listTask.push({ ...action.payload, id: v1() })
+            saveToLocalStorage("todoList", state.listTask)
         },
         deleteTask: (state, action) => {
             state.listTask = state.listTask.filter(({ id }) => action.payload !== id)
+            saveToLocalStorage("todoList", state.listTask)
         },
         editTask: (state, action) => {
             const { id } = action.payload
             state.listTask = state.listTask.map(task =>
                 id === task.id ? action.payload : task)
+            saveToLocalStorage("todoList", state.listTask)
         },
         toggleCheckTask: (state, action) => {
             state.listTask = state.listTask.map(task => {
@@ -33,6 +36,7 @@ export const todoSlice = createSlice({
                 }
                 return task
             })
+            saveToLocalStorage("todoList", state.listTask)
         },
         filterData: (state, action) => {
             state.filter = merge(state.filter, action.payload)
