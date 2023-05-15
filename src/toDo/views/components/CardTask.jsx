@@ -2,6 +2,8 @@ import { Card, IconButton, CardContent, Checkbox, Grid, Typography } from "@mui/
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 
+const statusToBoolean = { done: true, pending: false }
+
 export const CardTask = ({ editItem, deleteItem, toggleItem, status, title, description, category }) => {
     return (
         <Card sx={{ width: '100%', mb: '1rem' }}>
@@ -9,7 +11,7 @@ export const CardTask = ({ editItem, deleteItem, toggleItem, status, title, desc
                 <Grid container spacing={0.5} sx={{ p: 0 }}>
                     <Grid item xs={2} sx={{ m: 'auto' }}>
                         <Checkbox
-                            checked={status}
+                            checked={statusToBoolean[status]}
                             onChange={toggleItem}
                             sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
                             inputProps={{ 'aria-label': 'controlled' }}
