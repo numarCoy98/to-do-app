@@ -1,26 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit'
+import listTask from '../../../data/list_task.json'
 
 const initialState = {
-    listTask: [],
+    listTask
 }
 
 export const todoSlice = createSlice({
     name: 'counter',
     initialState,
     reducers: {
-        addTask: (state) => {
-            console.log({ add: state })
+        addTask: (state, action) => {
+            state.push(action.payload)
         },
-        deleteTask: (state) => {
-            console.log({ delete: state })
+        deleteTask: (state, action) => {
+            state.listTask = state.listTask.filter(({ id }) => action.payload !== id)
         },
-        editTask: (state) => {
-            console.log({ edit: state })
+        editTask: (state, action) => {
+            const { id, updateTask } = action.payload
+            state.listTask = state.listTask.map((task, currentIndex) => id === currentIndex ? updateTask : task)
         },
-        toggleCheckTask: (state) => {
-            console.log({ doneOrIncomplete: state })
-        },
-
+        toggleCheckTask: (state, action) => {
+            state.listTask = state.listTask.map((task, index) => {
+                if (index !== action.payload) {
+                    return { ...task, status: !task.status }
+                }
+                return task
+            })
+        }
     }
 })
 
