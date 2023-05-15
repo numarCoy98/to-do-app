@@ -1,11 +1,13 @@
 import { v1 } from 'uuid'
+import merge from 'mergerino';
 import { createSlice } from '@reduxjs/toolkit'
 
-import listTask from '../../../data/list_task.json'
+// import listTask from '../../../data/list_task.json'
 import categories from '../../../data/categories.json'
+import { loadFromLocalStore } from '../../browser-storage'
 
 const initialState = {
-    listTask,
+    // listTask,
     categories,
     filter: { status: 'all' }
 }
@@ -34,12 +36,22 @@ export const todoSlice = createSlice({
             })
         },
         filterData: (state, action) => {
-            state.filter = { ...state.filter, ...action.payload }
+            state.filter = merge(state.filter, action.payload)
+        },
+        loadData: (state, action) => {
+            state.listTask = loadFromLocalStore().filter(task => Object.entries(state.filter).every(([key, value]) => {
+                if (key === 'search') {
+                    return true
+                }
+                if (key === 'status' && value === 'all') return true
+                return task[key] === value
+            })
+            )
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { addTask, deleteTask, editTask, toggleCheckTask, filterData } = todoSlice.actions
+export const { addTask, deleteTask, editTask, toggleCheckTask, filterData, loadData } = todoSlice.actions
 
 // export default todoSlice.reducer
