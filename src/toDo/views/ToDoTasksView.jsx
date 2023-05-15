@@ -1,12 +1,17 @@
 import { Grid } from "@mui/material"
 import { CardTask } from "./components"
 
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteTask, toggleCheckTask } from "../../store/slices/todos"
+import { deleteTask, toggleCheckTask, loadData } from "../../store/slices/todos"
 
 export const ToDoTasksView = ({ openModal }) => {
-    const { listTask } = useSelector((state) => state.todo)
+    const { listTask, filter } = useSelector((state) => state.todo)
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(loadData())
+    }, [filter])
 
     return (
         <Grid container direction='row' justifyContent='space-between' sx={{ mb: 1 }}>
