@@ -47,7 +47,7 @@ export const todoSlice = createSlice({
             state.filter = merge(state.filter, action.payload)
         },
         loadData: (state, action) => {
-            state.listTask = loadFromLocalStore("todoList").filter(task => {
+            state.listTask = loadFromLocalStore("todoList")?.filter(task => {
                 const entries = Object.entries(state.filter)
                 return entries.length > 0 && entries.every(([key, value]) => {
                     if (key === 'search') {
@@ -58,7 +58,7 @@ export const todoSlice = createSlice({
                     return task[key] === value
                 })
 
-            })
+            }) || []
         }
     }
 })

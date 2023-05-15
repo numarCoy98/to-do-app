@@ -33,7 +33,6 @@ export const ModalTask = ({ handleClose, open, handleSave, defaultInfo = undefin
 
     const saveForm = () => {
         const isFormComplete = validateForm([title, description, category])
-        console.log({ formState })
         if (isFormComplete) return (handleSave(formState), handleClose())
         return setAlert(true)
     }

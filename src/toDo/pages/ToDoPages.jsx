@@ -18,7 +18,6 @@ export const ToDoPages = () => {
     const [info, setInfo] = useState(undefined)
 
     const handleOpenModal = (info) => {
-        console.log({ info })
         if (info) {
             setInfo(info)
         }
