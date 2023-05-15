@@ -1,12 +1,18 @@
 import { Drawer } from '@mui/material';
-import { useState } from 'react'
+// import { useState } from 'react'
+import { useDispatch, useSelector } from "react-redux"
+import { drawerToggle } from "../../store/slices/ui/uiSlice"
 
 const DrawerMobile = ({ children, drawerWidth = 240 }) => {
-    const [mobileOpen, setMobileOpen] = useState(false);
+
+
+    const dispatch = useDispatch();
+    const { mobileOpen } = useSelector((state) => state.ui)
 
     const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
+        dispatch(drawerToggle());
     };
+
     return (<Drawer
         open={mobileOpen}
         onClose={handleDrawerToggle}

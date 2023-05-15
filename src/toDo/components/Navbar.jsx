@@ -1,8 +1,18 @@
 import { LogoutOutlined, MenuOutlined } from "@mui/icons-material"
 import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material"
 
+import { useDispatch } from "react-redux"
+import { drawerToggle } from "../../store/slices/ui/uiSlice"
+
 export const NavBar = ({ drawerWidth = 240 }) => {
-    console.log('render navbar')
+
+    const dispatch = useDispatch();
+
+    const handleDrawerToggle = () => {
+        dispatch(drawerToggle());
+    };
+
+
     return (<AppBar
         position="fixed"
         sx={{
@@ -12,6 +22,7 @@ export const NavBar = ({ drawerWidth = 240 }) => {
     >
         <Toolbar>
             <IconButton
+                onClick={handleDrawerToggle}
                 color="inherit"
                 edge="start"
                 sx={{ mr: 2, display: { sm: 'none', } }}
