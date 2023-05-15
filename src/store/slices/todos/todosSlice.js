@@ -7,7 +7,6 @@ import categories from '../../../data/categories.json'
 import { loadFromLocalStore } from '../../browser-storage'
 
 const initialState = {
-    // listTask,
     categories,
     filter: { status: 'all' }
 }
@@ -39,14 +38,17 @@ export const todoSlice = createSlice({
             state.filter = merge(state.filter, action.payload)
         },
         loadData: (state, action) => {
-            state.listTask = loadFromLocalStore().filter(task => Object.entries(state.filter).every(([key, value]) => {
-                if (key === 'search') {
-                    return true
-                }
-                if (key === 'status' && value === 'all') return true
-                return task[key] === value
+            state.listTask = loadFromLocalStore("todoList").filter(task => {
+                const entries = Object.entries(state.filter)
+                return entries.length > 0 && entries.every(([key, value]) => {
+                    if (key === 'search') {
+                        return true
+                    }
+                    if (key === 'status' && value === 'all') return true
+                    return task[key] === value
+                })
+
             })
-            )
         }
     }
 })
