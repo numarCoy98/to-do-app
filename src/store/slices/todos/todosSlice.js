@@ -6,7 +6,8 @@ import categories from '../../../data/categories.json'
 
 const initialState = {
     listTask,
-    categories
+    categories,
+    filter: { status: 'all' }
 }
 
 export const todoSlice = createSlice({
@@ -31,11 +32,14 @@ export const todoSlice = createSlice({
                 }
                 return task
             })
+        },
+        filterData: (state, action) => {
+            state.filter = { ...state.filter, ...action.payload }
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { addTask, deleteTask, editTask, toggleCheckTask } = todoSlice.actions
+export const { addTask, deleteTask, editTask, toggleCheckTask, filterData } = todoSlice.actions
 
 // export default todoSlice.reducer
