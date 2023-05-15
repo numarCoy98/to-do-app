@@ -5,9 +5,11 @@
 
 - [yarn](https://nodejs.org/es/)
 - [react](https://react.dev/)
-- [bootstrap](https://getbootstrap.com/)
+- [MUI](https://mui.com/)
+- [Create React App](https://create-react-app.dev//)
 
-## Como Clonar
+
+## Cómo Clonar
 
 Comando para clonar:
 
