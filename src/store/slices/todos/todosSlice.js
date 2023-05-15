@@ -2,12 +2,15 @@ import { v1 } from 'uuid'
 import merge from 'mergerino';
 import { createSlice } from '@reduxjs/toolkit'
 
-// import listTask from '../../../data/list_task.json'
-import categories from '../../../data/categories.json'
 import { loadFromLocalStore, saveToLocalStorage } from '../../browser-storage'
 
 const initialState = {
-    categories,
+    categories: [
+        "trabajo",
+        "escuela",
+        "personal",
+        "familia"
+    ],
     filter: { status: 'all' }
 }
 
