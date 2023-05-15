@@ -1,5 +1,5 @@
 import { TurnedInNot, TurnedIn } from "@mui/icons-material"
-import { Drawer, Box, Toolbar, Typography, Divider, ListItem, ListItemButton, ListItemIcon, List, ListItemText } from "@mui/material"
+import { TextField, Drawer, Box, Toolbar, Typography, Divider, ListItem, ListItemButton, ListItemIcon, List, ListItemText } from "@mui/material"
 
 import { useDispatch, useSelector } from "react-redux"
 import { filterData } from "../../store/slices/todos"
@@ -14,6 +14,10 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 
     const handleSelectStatus = (key, value) => {
         dispatch(filterData({ [key]: filter[key] === value ? undefined : value }))
+    }
+
+    const onInputSearch = ({ target: { value } }) => {
+        dispatch(filterData({ 'search': value || undefined }))
     }
 
     return (
@@ -32,6 +36,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                 <Toolbar>
                     <Typography variant="h5">Numar Coy</Typography>
                 </Toolbar>
+                <Divider />
+                <TextField
+                    onInput={onInputSearch}
+                    sx={{ m: '1rem' }}
+                    id="outlined-required"
+                    label="Buscar tarea"
+                    defaultValue={filter?.search}
+                />
                 <Divider />
                 <List>
                     {
