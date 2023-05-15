@@ -3,7 +3,6 @@ import { CardTask } from "./components"
 
 import { useDispatch, useSelector } from "react-redux"
 import { deleteTask, toggleCheckTask } from "../../store/slices/todos"
-// import actions from "../../store/slices/todos"
 
 export const ToDoTasksView = ({ openModal }) => {
     const { listTask } = useSelector((state) => state.todo)

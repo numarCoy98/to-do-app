@@ -6,8 +6,13 @@ import { TodoLayout } from "../layout"
 import { ToDoTasksView } from '../views'
 import { ModalTask } from "../components/ModalTask"
 
+import { useDispatch, useSelector } from "react-redux"
+import { addTask, editTask } from "../../store/slices/todos"
 
 export const ToDoPages = () => {
+
+    const dispatch = useDispatch();
+
     const [shomModal, setShomModal] = useState(false)
     const [info, setInfo] = useState(undefined)
 
@@ -22,6 +27,13 @@ export const ToDoPages = () => {
         setInfo(undefined)
         setShomModal(false);
     };
+
+    const handleSave = (task) => {
+        if (info) {
+            return dispatch(editTask(task))
+        }
+        console.log({ add: task })
+    }
 
     return (
         <TodoLayout>
@@ -44,7 +56,7 @@ export const ToDoPages = () => {
                 defaultInfo={info}
                 handleClose={handleCloseModal}
                 open={shomModal}
-                handleSave={(task) => console.log({ 'guardar tarea': task })}
+                handleSave={handleSave}
             />}
         </TodoLayout>
     )
