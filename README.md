@@ -9,7 +9,7 @@
 - [Create React App](https://create-react-app.dev//)
 
 
-## Cómo Clonar
+## Clonar repositorio en carpeta local
 
 Comando para clonar:
 
@@ -19,7 +19,7 @@ git clone "https://github.com/numarCoy98/to-do-app.git"
 
 ```
 
-## Intalación
+## Instalación
 
 Ya clonado el proyecto es necesario instalar todas las dependencias con el comando:
 
@@ -27,19 +27,19 @@ Ya clonado el proyecto es necesario instalar todas las dependencias con el coman
 yarn
 ```
 
-### Run en LocalHost:
+### Ejecución de código en ambiente de desarrollo:
 
 ```bash
 yarn start
 ```
 
-## Generar la archivo de producción 
+## Construcción de la aplicación para ambiente de producción (build):
 
 ```bash
 yarn build
 ```
 
-## Ejecutar crear un servidor local y ejecutar codigo de producción
+## Ejecución de la aplicación construida en servidor local:
 
 ```bash
 npx serve -s build -l 4000
