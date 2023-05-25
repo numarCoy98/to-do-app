@@ -2,18 +2,21 @@ import { store } from './store/store'
 import { Provider } from 'react-redux'
 
 import { AppTheme } from "./theme";
-import { ToDoPages } from "./toDo";
+import { AppRouter } from './router/AppRouter';
+import { BrowserRouter } from 'react-router-dom';
 
 
 
 
 function App() {
   return (
-    <Provider store={store}>
-      <AppTheme>
-        <ToDoPages />
-      </AppTheme>
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppTheme>
+          <AppRouter />
+        </AppTheme>
+      </Provider>
+    </BrowserRouter>
   );
 }
 
