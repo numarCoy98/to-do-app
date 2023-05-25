@@ -8,24 +8,25 @@ import { ModalTask } from "../components/ModalTask"
 
 import { useDispatch, useSelector } from "react-redux"
 import { addTask, editTask } from "../../store/slices/todos"
+import { setShowModal } from "../../store/slices/ui"
 
 export const ToDoPages = () => {
 
     const dispatch = useDispatch();
     const { categories } = useSelector((state) => state.todo)
+    const { showModal } = useSelector((state) => state.ui)
 
-    const [shomModal, setShomModal] = useState(false)
     const [info, setInfo] = useState(undefined)
 
     const handleOpenModal = (info) => {
         if (info) {
             setInfo(info)
         }
-        setShomModal(true);
+        dispatch(setShowModal(true));
     };
     const handleCloseModal = () => {
         setInfo(undefined)
-        setShomModal(false);
+        dispatch(setShowModal(false));
     };
 
     const handleSave = (task) => {
@@ -52,11 +53,11 @@ export const ToDoPages = () => {
             >
                 <AddOutlined sx={{ fontSize: '30', color: 'white' }} />
             </IconButton>
-            {shomModal && <ModalTask
+            {showModal && <ModalTask
                 categories={categories}
                 defaultInfo={info}
                 handleClose={handleCloseModal}
-                open={shomModal}
+                open={showModal}
                 handleSave={handleSave}
             />}
         </TodoLayout>
