@@ -10,7 +10,7 @@ export const useForm = (initialForm = {}, formValidations = {}) => {
     }, [formState])
 
     const isFormValid = useMemo(() => {
-        for (const formField of Object.keys(formValidations)) {
+        for (const formField of Object.keys(formValidation)) {
             if (formValidation[formField] !== null) return false;
         }
         return true
@@ -30,7 +30,6 @@ export const useForm = (initialForm = {}, formValidations = {}) => {
 
     const createValidators = () => {
         const formCheckedValues = {};
-
         for (const formField of Object.keys(formValidations)) {
             const [fn, errorMessage = 'Error de validación'] = formValidations[formField]
             formCheckedValues[`${formField}Valid`] = fn(formState[formField]) ? null : errorMessage
