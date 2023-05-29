@@ -29,7 +29,7 @@ export const registerUserWithEmailPassword = async ({ email, password, displayNa
         const resp = await createUserWithEmailAndPassword(FirebaseAuth, email, password)
         const { uid, photoURL } = resp.user;
         await updateProfile(FirebaseAuth.currentUser, { displayName })
-        return { ok: true, uid, photoURL }
+        return { ok: true, uid, photoURL, displayName }
 
     } catch (error) {
         const errorMessage = error.message
@@ -37,17 +37,14 @@ export const registerUserWithEmailPassword = async ({ email, password, displayNa
     }
 }
 
-// export const loginWithEmailPassword = async ({ email, password }) => {
-//     try {
-//         const resp = await signInWithEmailAndPassword(FirebaseAuth, email, password)
-//         const { uid, photoURL } = resp.user;
-//         await updateProfile(FirebaseAuth.currentUser, { displayName })
-//         console.log("🚀 ~ file: providers.js:24 ~ registerUserWithEmailPassword ~ resp:", resp)
+export const loginWithEmailPassword = async ({ email, password }) => {
+    try {
+        const resp = await signInWithEmailAndPassword(FirebaseAuth, email, password)
+        const { uid, photoURL, displayName } = resp.user;
+        return { ok: true, uid, photoURL, displayName }
 
-//         return { ok: true, uid, photoURL }
-
-//     } catch (error) {
-//         const errorMessage = error.message
-//         return { ok: false, errorMessage }
-//     }
-// }
+    } catch (error) {
+        const errorMessage = error.message
+        return { ok: false, errorMessage }
+    }
+}
