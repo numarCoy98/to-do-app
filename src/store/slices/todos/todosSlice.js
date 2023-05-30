@@ -1,8 +1,5 @@
-import { v1 } from 'uuid'
 import merge from 'mergerino';
 import { createSlice } from '@reduxjs/toolkit'
-
-import { loadFromLocalStore, saveToLocalStorage } from '../../browser-storage'
 
 const initialState = {
     categories: [

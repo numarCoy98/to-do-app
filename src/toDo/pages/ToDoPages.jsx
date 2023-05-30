@@ -33,10 +33,8 @@ export const ToDoPages = () => {
 
     const handleSave = (task) => {
         if (info) {
-            // return dispatch(editTask(task))
             return dispatch(startEditTask(task))
         }
-        // return (dispatch(addTask(task)), dispatch(startNewTask(task)))
         return dispatch(startNewTask(task))
     }
 
