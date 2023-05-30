@@ -3,7 +3,7 @@ import { CardTask } from "./components"
 
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteTask, toggleCheckTask, loadData } from "../../store/slices/todos"
+import { deleteTask, toggleCheckTask } from "../../store/slices/todos"
 import { startLoadingData } from "../../store/slices/todos/thunks"
 
 export const ToDoTasksView = ({ openModal }) => {

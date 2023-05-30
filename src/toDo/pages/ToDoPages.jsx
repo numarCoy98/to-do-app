@@ -9,7 +9,7 @@ import { ModalTask } from "../components/ModalTask"
 import { useDispatch, useSelector } from "react-redux"
 import { addTask, editTask } from "../../store/slices/todos"
 import { setShowModal } from "../../store/slices/ui"
-import { startNewTask } from "../../store/slices/todos/thunks"
+import { startEditTask, startNewTask } from "../../store/slices/todos/thunks"
 
 export const ToDoPages = () => {
 
@@ -32,7 +32,8 @@ export const ToDoPages = () => {
 
     const handleSave = (task) => {
         if (info) {
-            return dispatch(editTask(task))
+            // return dispatch(editTask(task))
+            return dispatch(startEditTask(task))
         }
         // return (dispatch(addTask(task)), dispatch(startNewTask(task)))
         return dispatch(startNewTask(task))
