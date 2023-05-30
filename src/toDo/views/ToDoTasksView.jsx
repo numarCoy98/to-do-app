@@ -4,13 +4,14 @@ import { CardTask } from "./components"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { deleteTask, toggleCheckTask, loadData } from "../../store/slices/todos"
+import { startLoadingData } from "../../store/slices/todos/thunks"
 
 export const ToDoTasksView = ({ openModal }) => {
     const { listTask, filter } = useSelector((state) => state.todo)
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(loadData())
+        dispatch(startLoadingData())
     }, [filter])
 
     return (
