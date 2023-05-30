@@ -33,7 +33,6 @@ export const todoSlice = createSlice({
         },
         deleteTask: (state, action) => {
             state.listTask = state.listTask.filter(({ id }) => action.payload !== id)
-            saveToLocalStorage("todoList", state.listTask)
         },
         editTask: (state, action) => {
             const { id } = action.payload

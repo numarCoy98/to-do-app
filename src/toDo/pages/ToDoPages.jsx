@@ -7,7 +7,6 @@ import { ToDoTasksView } from '../views'
 import { ModalTask } from "../components/ModalTask"
 
 import { useDispatch, useSelector } from "react-redux"
-import { addTask, editTask } from "../../store/slices/todos"
 import { setShowModal } from "../../store/slices/ui"
 import { startEditTask, startNewTask } from "../../store/slices/todos/thunks"
 

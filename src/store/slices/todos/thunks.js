@@ -1,7 +1,7 @@
-import { collection, doc, setDoc } from 'firebase/firestore/lite'
+import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite'
 import { loadData } from '../../../helpers';
 import { FirebaseDB } from '../../../firebase/config';
-import { addTask, editTask, loading, setTasks } from './todosSlice';
+import { addTask, deleteTask, editTask, loading, setTasks } from './todosSlice';
 
 export const startNewTask = (task) => {
     return async (dispatch, getState) => {
@@ -34,6 +34,20 @@ export const startEditTask = (task) => {
             const docRef = doc(FirebaseDB, `${uid}/todoApp/tasks/${task.id}`)
             await setDoc(docRef, taskToFireStore, { merge: true })
             dispatch(editTask(task))
+        } catch (error) {
+            console.log({ error })
+        }
+    }
+}
+
+export const startDeleteTask = (id) => {
+    return async (dispatch, getState) => {
+        dispatch(loading())
+        try {
+            const { uid } = getState().auth;
+            const docRef = doc(FirebaseDB, `${uid}/todoApp/tasks/${id}`)
+            await deleteDoc(docRef)
+            dispatch(deleteTask(id))
         } catch (error) {
             console.log({ error })
         }
