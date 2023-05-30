@@ -11,7 +11,10 @@ const initialState = {
         "personal",
         "familia"
     ],
-    filter: { status: 'all' }
+    filter: { status: 'all' },
+    isSaving: false,
+    isLoading: false
+
 }
 
 const switchStatus = { 'pending': 'done', 'done': 'pending' }
@@ -20,9 +23,13 @@ export const todoSlice = createSlice({
     name: 'todo',
     initialState,
     reducers: {
+        loading: (state) => {
+            state.isLoading = true
+        },
         addTask: (state, action) => {
-            state.listTask.push({ ...action.payload, id: v1() })
-            saveToLocalStorage("todoList", state.listTask)
+            state.listTask.push({ ...action.payload })
+            state.isLoading = false
+            // saveToLocalStorage("todoList", state.listTask)
         },
         deleteTask: (state, action) => {
             state.listTask = state.listTask.filter(({ id }) => action.payload !== id)
@@ -64,6 +71,6 @@ export const todoSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addTask, deleteTask, editTask, toggleCheckTask, filterData, loadData } = todoSlice.actions
+export const { loading, addTask, deleteTask, editTask, toggleCheckTask, filterData, loadData } = todoSlice.actions
 
 // export default todoSlice.reducer
