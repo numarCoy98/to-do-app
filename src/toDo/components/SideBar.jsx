@@ -13,7 +13,7 @@ const statusString = { 'Finalizadas': 'done', 'Todas': 'all', 'Pendientes': 'pen
 
 export const SideBar = ({ drawerWidth = 240 }) => {
 
-    const { categories, filter } = useSelector((state) => state.todo)
+    const { categories, filter, displayName } = useSelector((state) => ({ ...state.todo, ...state.auth }))
     const dispatch = useDispatch();
 
     const handleSelectStatus = (key, value) => {
@@ -26,7 +26,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 
     const ChildrenDrawer = <>
         <Toolbar>
-            <Typography variant="h5">Numar Coy</Typography>
+            <Typography variant="h5">{displayName}</Typography>
         </Toolbar>
         <Divider />
         <TextField
