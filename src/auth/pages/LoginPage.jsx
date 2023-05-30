@@ -25,12 +25,10 @@ export const LoginPage = () => {
     const onSubmit = event => {
         event.preventDefault();
         dispatch(checkingAuthentication())
-        console.log({ email, password })
         dispatch(startWithEmailPassword({ email, password }))
     }
     const onGoogleSignIn = () => {
         dispatch(startGoogleSignIn())
-        console.log('on google ')
     }
     return (
         <AuthLayout title='Ingresar'>
