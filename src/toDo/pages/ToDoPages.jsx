@@ -1,6 +1,8 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { AddOutlined } from "@mui/icons-material"
 import { IconButton } from "@mui/material"
+import Swal from "sweetalert2"
+import 'sweetalert2/dist/sweetalert2.css'
 
 import { TodoLayout } from "../layout"
 import { ToDoTasksView } from '../views'
@@ -13,7 +15,7 @@ import { startEditTask, startNewTask } from "../../store/slices/todos/thunks"
 export const ToDoPages = () => {
 
     const dispatch = useDispatch();
-    const { categories } = useSelector((state) => state.todo)
+    const { categories, message } = useSelector((state) => state.todo)
     const { showModal } = useSelector((state) => state.ui)
 
     const [info, setInfo] = useState(undefined)
@@ -37,6 +39,13 @@ export const ToDoPages = () => {
         // return (dispatch(addTask(task)), dispatch(startNewTask(task)))
         return dispatch(startNewTask(task))
     }
+
+    useEffect(() => {
+        if (message.length > 0) {
+            Swal.fire(message, 'success')
+        }
+    }, [message])
+
 
     return (
         <TodoLayout>

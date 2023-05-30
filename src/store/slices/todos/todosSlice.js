@@ -13,8 +13,8 @@ const initialState = {
     ],
     filter: { status: 'all' },
     isSaving: false,
-    isLoading: false
-
+    isLoading: false,
+    message: ''
 }
 
 const switchStatus = { 'pending': 'done', 'done': 'pending' }
@@ -29,15 +29,19 @@ export const todoSlice = createSlice({
         addTask: (state, action) => {
             state.listTask.push({ ...action.payload })
             state.isLoading = false
-            // saveToLocalStorage("todoList", state.listTask)
+            state.message = 'Tarea añadida'
         },
         deleteTask: (state, action) => {
             state.listTask = state.listTask.filter(({ id }) => action.payload !== id)
+            state.isLoading = false
+            state.message = 'Tarea eliminada'
         },
         editTask: (state, action) => {
             const { id } = action.payload
             state.listTask = state.listTask.map(task =>
                 id === task.id ? action.payload : task)
+            state.isLoading = false
+            state.message = 'Tarea editada'
         },
         toggleCheckTask: (state, action) => {
             state.listTask = state.listTask.map(task => {
@@ -46,7 +50,6 @@ export const todoSlice = createSlice({
                 }
                 return task
             })
-            saveToLocalStorage("todoList", state.listTask)
         },
         filterData: (state, action) => {
             state.filter = merge(state.filter, action.payload)
@@ -63,6 +66,7 @@ export const todoSlice = createSlice({
                     return task[key] === value
                 })
             }) || []
+            state.isLoading = false
         }
     }
 })
