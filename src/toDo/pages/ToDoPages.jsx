@@ -1,19 +1,21 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { AddOutlined } from "@mui/icons-material"
 import { IconButton } from "@mui/material"
+import Swal from "sweetalert2"
+import 'sweetalert2/dist/sweetalert2.css'
 
 import { TodoLayout } from "../layout"
 import { ToDoTasksView } from '../views'
 import { ModalTask } from "../components/ModalTask"
 
 import { useDispatch, useSelector } from "react-redux"
-import { addTask, editTask } from "../../store/slices/todos"
 import { setShowModal } from "../../store/slices/ui"
+import { startEditTask, startNewTask } from "../../store/slices/todos/thunks"
 
 export const ToDoPages = () => {
 
     const dispatch = useDispatch();
-    const { categories } = useSelector((state) => state.todo)
+    const { categories, message } = useSelector((state) => state.todo)
     const { showModal } = useSelector((state) => state.ui)
 
     const [info, setInfo] = useState(undefined)
@@ -31,10 +33,17 @@ export const ToDoPages = () => {
 
     const handleSave = (task) => {
         if (info) {
-            return dispatch(editTask(task))
+            return dispatch(startEditTask(task))
         }
-        return dispatch(addTask(task))
+        return dispatch(startNewTask(task))
     }
+
+    useEffect(() => {
+        if (message.length > 0) {
+            Swal.fire(message, 'success')
+        }
+    }, [message])
+
 
     return (
         <TodoLayout>

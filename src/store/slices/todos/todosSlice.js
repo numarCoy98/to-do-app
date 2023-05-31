@@ -1,8 +1,5 @@
-import { v1 } from 'uuid'
 import merge from 'mergerino';
 import { createSlice } from '@reduxjs/toolkit'
-
-import { loadFromLocalStore, saveToLocalStorage } from '../../browser-storage'
 
 const initialState = {
     categories: [
@@ -11,7 +8,10 @@ const initialState = {
         "personal",
         "familia"
     ],
-    filter: { status: 'all' }
+    filter: { status: 'all' },
+    isSaving: false,
+    isLoading: false,
+    message: ''
 }
 
 const switchStatus = { 'pending': 'done', 'done': 'pending' }
@@ -20,19 +20,25 @@ export const todoSlice = createSlice({
     name: 'todo',
     initialState,
     reducers: {
+        loading: (state) => {
+            state.isLoading = true
+        },
         addTask: (state, action) => {
-            state.listTask.push({ ...action.payload, id: v1() })
-            saveToLocalStorage("todoList", state.listTask)
+            state.listTask.push({ ...action.payload })
+            state.isLoading = false
+            state.message = 'Tarea añadida'
         },
         deleteTask: (state, action) => {
             state.listTask = state.listTask.filter(({ id }) => action.payload !== id)
-            saveToLocalStorage("todoList", state.listTask)
+            state.isLoading = false
+            state.message = 'Tarea eliminada'
         },
         editTask: (state, action) => {
             const { id } = action.payload
             state.listTask = state.listTask.map(task =>
                 id === task.id ? action.payload : task)
-            saveToLocalStorage("todoList", state.listTask)
+            state.isLoading = false
+            state.message = 'Tarea editada'
         },
         toggleCheckTask: (state, action) => {
             state.listTask = state.listTask.map(task => {
@@ -41,13 +47,12 @@ export const todoSlice = createSlice({
                 }
                 return task
             })
-            saveToLocalStorage("todoList", state.listTask)
         },
         filterData: (state, action) => {
             state.filter = merge(state.filter, action.payload)
         },
-        loadData: (state, action) => {
-            state.listTask = loadFromLocalStore("todoList")?.filter(task => {
+        setTasks: (state, action) => {
+            state.listTask = action.payload?.filter(task => {
                 const entries = Object.entries(state.filter)
                 return entries.length > 0 && entries.every(([key, value]) => {
                     if (key === 'search') {
@@ -57,13 +62,13 @@ export const todoSlice = createSlice({
                     if (key === 'status' && value === 'all') return true
                     return task[key] === value
                 })
-
             }) || []
+            state.isLoading = false
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { addTask, deleteTask, editTask, toggleCheckTask, filterData, loadData } = todoSlice.actions
+export const { setTasks, loading, addTask, deleteTask, editTask, toggleCheckTask, filterData } = todoSlice.actions
 
 // export default todoSlice.reducer
