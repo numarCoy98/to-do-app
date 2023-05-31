@@ -46,6 +46,9 @@ export const CardTask = ({ editItem, deleteItem, toggleItem, status, title, desc
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                         {description}
                     </Typography>
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary">
+                        {category}
+                    </Typography>
                 </CardContent>
                 <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Checkbox
