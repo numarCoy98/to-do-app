@@ -2,18 +2,18 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore/lite'
-// TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyB_Clom3iW4UMY3XlVNqOTxb9ML6I8mVHQ",
-    authDomain: "personal-projects-f6e26.firebaseapp.com",
-    projectId: "personal-projects-f6e26",
-    storageBucket: "personal-projects-f6e26.appspot.com",
-    messagingSenderId: "407924092302",
-    appId: "1:407924092302:web:151cee6ebf10e2f17e48df"
+    apiKey: process.env.REACT_APP_apiKey,
+    authDomain: process.env.REACT_APP_authDomain,
+    projectId: process.env.REACT_APP_projectId,
+    storageBucket: process.env.REACT_APP_storageBucket,
+    messagingSenderId: process.env.REACT_APP_messagingSenderId,
+    appId: process.env.REACT_APP_appId
 };
+
+console.log({ apiKey: process.env })
 
 // Initialize Firebase
 export const FirebaseApp = initializeApp(firebaseConfig);
