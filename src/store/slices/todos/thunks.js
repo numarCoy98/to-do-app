@@ -1,7 +1,7 @@
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite'
 import { loadData } from '../../../helpers';
 import { FirebaseDB } from '../../../firebase/config';
-import { addTask, deleteTask, editTask, loading, setTasks } from './todosSlice';
+import { addTask, deleteTask, editTask, loading, setTasks, toggleCheckTask } from './todosSlice';
 
 export const startNewTask = (task) => {
     return async (dispatch, getState) => {
@@ -40,6 +40,7 @@ export const startEditTask = (task) => {
     }
 }
 
+
 export const startDeleteTask = (id) => {
     return async (dispatch, getState) => {
         dispatch(loading())
@@ -48,6 +49,25 @@ export const startDeleteTask = (id) => {
             const docRef = doc(FirebaseDB, `${uid}/todoApp/tasks/${id}`)
             await deleteDoc(docRef)
             dispatch(deleteTask(id))
+        } catch (error) {
+            console.log({ error })
+        }
+    }
+}
+
+const switchStatus = { 'pending': 'done', 'done': 'pending' }
+
+export const startToggleCheckTask = (id) => {
+    return async (dispatch, getState) => {
+        dispatch(loading())
+        try {
+            const { auth: { uid }, todo: { listTask } } = getState();
+            const taskEdited = listTask.find(({ id: idTask }) => id === idTask)
+            const taskToFireStore = { ...taskEdited, status: switchStatus[taskEdited.status] }
+            delete taskToFireStore.id;
+            const docRef = doc(FirebaseDB, `${uid}/todoApp/tasks/${taskEdited.id}`)
+            await setDoc(docRef, taskToFireStore, { merge: true })
+            dispatch(toggleCheckTask(id))
         } catch (error) {
             console.log({ error })
         }

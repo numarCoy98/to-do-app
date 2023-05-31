@@ -4,7 +4,7 @@ import { CardTask } from "./components"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { toggleCheckTask } from "../../store/slices/todos"
-import { startLoadingData, startDeleteTask } from "../../store/slices/todos/thunks"
+import { startLoadingData, startDeleteTask, startToggleCheckTask } from "../../store/slices/todos/thunks"
 
 export const ToDoTasksView = ({ openModal }) => {
     const { listTask, filter } = useSelector((state) => state.todo)
@@ -23,7 +23,10 @@ export const ToDoTasksView = ({ openModal }) => {
                     {...data}
                     deleteItem={() => dispatch(startDeleteTask(id))}
                     editItem={() => openModal(data)}
-                    toggleItem={() => dispatch(toggleCheckTask(id))}
+                    toggleItem={() => {
+                        // dispatch(toggleCheckTask(id))
+                        dispatch(startToggleCheckTask(id))
+                    }}
                 />)
             }
             )}

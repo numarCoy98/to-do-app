@@ -17,7 +17,6 @@ export const AppRouter = () => {
                 // login y registro
                 : <Route path="/auth/*" element={<AuthRoutes />} />
             }
-
             <Route path="/*" element={<Navigate to='/auth/login' />} />
 
         </Routes>

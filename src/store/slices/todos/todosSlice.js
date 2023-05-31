@@ -47,6 +47,7 @@ export const todoSlice = createSlice({
                 }
                 return task
             })
+            state.isLoading = false
         },
         filterData: (state, action) => {
             state.filter = merge(state.filter, action.payload)
